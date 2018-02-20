@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="/assets/dist/css/shards.min.css?v=2.0.1">
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
     <link rel="stylesheet" href="/assets/dist/css/shards-extras.min.css?v=2.0.1">
 
   <link rel="stylesheet" href="css/style.css">
@@ -38,7 +41,7 @@
     <form class="form-inline my-2 my-lg-0">
       
         <div class="input-group input-group-seamless">
-          <input type="text" class="form-control border-lighter" aria-label="Search .." style="border-radius: 30px;">
+          <input  data-provide="typeahead" name="search" id="search" type="text" class="form-control border-lighter typeahead" aria-label="Search .." style="border-radius: 30px;">
           <div class="input-group-append">
               <div class="input-group-text">
                   <i class="fa fa-search"></i>
@@ -90,7 +93,7 @@
             From:
         </div>
     </div>
-    <input type="text" class="form-control" aria-label="Text input with checkbox" style="border-radius: 35px;padding-left: 60px;">
+    <input type="text" name="origin" id="origin" class="form-control" aria-label="Text input with checkbox" style="border-radius: 35px;padding-left: 60px;">
 </div>
       </div>
         <div class="form-group">
@@ -100,8 +103,12 @@
                       To:
                   </div>
               </div>
-              <input type="text" class="form-control" aria-label="Text input with checkbox" style="border-radius: 35px;padding-left: 40px;">
+              <input type="text"  name="destination" id="destination"  class="form-control" aria-label="Text input with checkbox" style="border-radius: 35px;padding-left: 40px;">
           </div>
+        </div>
+
+        <div class="form-group">
+          <button type="button" id="plot" class="btn btn-secondary btn-block">Map it</button>
         </div>
       </form>
     </div>
@@ -111,6 +118,22 @@
           <h5>Traffic: </h5>
     </div>
     <div class="col-sm-3 col-6">
+      <fieldset>
+        <!-- <select class="custom-select w-100" required="">
+          <option value="">Select Favourite Number</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select> -->
+        <select id="style-selector" class="selector-control custom-select">
+          <option value="default">Default</option>
+          <option value="silver">Silver</option>
+          <option value="night">Night mode</option>
+          <option value="retro" selected="selected">Retro</option>
+          <option value="hiding">Hide features</option>
+        </select>
+      </fieldset>
+
       <div class="custom-control custom-toggle d-block my-2">
         <input type="checkbox" id="map_toggle" name="map_toggle" class="custom-control-input">
         <label class="custom-control-label" for="map_toggle">Map</label>
@@ -119,10 +142,7 @@
         <input type="checkbox" id="satelite_toggle" name="satelite_toggle" class="custom-control-input">
         <label class="custom-control-label" for="satelite_toggle">Satelite</label>
       </div>
-      <div class="custom-control custom-toggle d-block my-2">
-        <input type="checkbox" id="dark_toggle" name="satelite_toggle" class="custom-control-input">
-        <label class="custom-control-label" for="dark_toggle">Dark</label>
-      </div>
+      
     </div>
     </div>
   </div>
@@ -131,29 +151,68 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script
+  src="http://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>    
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
     <script src="/assets/dist/js/shards.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
-    <script>
-      function initMap() {
-        // Create a map object and specify the DOM element for display.
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 8
-        });
-      }
-
-    </script>
+   <script src="/js/map.js"></script>
+   <script src="/js/mapStyles.js"></script>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbmUlBnah_zfndo-p66h_hG9rvN-navHg&callback=initMap"
     async defer></script>
 
 
-    
+  <script>
+    $(function(){
+
+      /*var typeaheadSource = [{ id: 1, name: 'John'}, { id: 2, name: 'Alex'}, { id: 3, name: 'Terry'}];
+      $('input.typeahead').typeahead({
+          source: typeaheadSource
+      });*/
+      
+ var availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskell",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+    ];
+    $( "#search" ).autocomplete({
+      source: availableTags
+    });
+
+    })
+
+  
+
+  </script>
 
   </body>
 </html>
