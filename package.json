@@ -1,0 +1,12 @@
+{
+  "name": "concepts",
+  "version": "1.0.0",
+  "description": "various stuff",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Heri Agape",
+  "license": "ISC"
+}
