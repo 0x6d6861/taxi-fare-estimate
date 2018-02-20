@@ -41,7 +41,7 @@
     <form class="form-inline my-2 my-lg-0">
       
         <div class="input-group input-group-seamless">
-          <input  data-provide="typeahead" name="search" id="search" type="text" class="form-control border-lighter typeahead" aria-label="Search .." style="border-radius: 30px;">
+          <input  data-provide="typeahead" name="search" id="search" type="text" class="form-control border-lighter typeahead" aria-label="Search .." style="border-radius: 0px;">
           <div class="input-group-append">
               <div class="input-group-text">
                   <i class="fa fa-search"></i>
@@ -93,7 +93,7 @@
             From:
         </div>
     </div>
-    <input type="text" name="origin" id="origin" class="form-control" aria-label="Text input with checkbox" style="border-radius: 35px;padding-left: 60px;">
+    <input type="text" name="origin" id="origin" class="form-control" aria-label="Text input with checkbox" style="border-radius: 0px;padding-left: 60px;">
 </div>
       </div>
         <div class="form-group">
@@ -103,28 +103,18 @@
                       To:
                   </div>
               </div>
-              <input type="text"  name="destination" id="destination"  class="form-control" aria-label="Text input with checkbox" style="border-radius: 35px;padding-left: 40px;">
+              <input type="text"  name="destination" id="destination"  class="form-control" aria-label="Text input with checkbox" style="border-radius: 0px;padding-left: 40px;">
           </div>
-        </div>
-
-        <div class="form-group">
-          <button type="button" id="plot" class="btn btn-secondary btn-block">Map it</button>
         </div>
       </form>
     </div>
     <div class="col-sm-4 col-6">
-           <h5>Distance: </h5>     
+           <h5>Distance: <span id="distance"></span></h5>     
           <h5>Time: </h5>
           <h5>Traffic: </h5>
     </div>
     <div class="col-sm-3 col-6">
       <fieldset>
-        <!-- <select class="custom-select w-100" required="">
-          <option value="">Select Favourite Number</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select> -->
         <select id="style-selector" class="selector-control custom-select">
           <option value="default">Default</option>
           <option value="silver">Silver</option>
@@ -162,51 +152,20 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
     <script src="/assets/dist/js/shards.min.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+    <script src="/js/DirectionService.js"></script>
 
    <script src="/js/map.js"></script>
    <script src="/js/mapStyles.js"></script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbmUlBnah_zfndo-p66h_hG9rvN-navHg&callback=initMap"
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbmUlBnah_zfndo-p66h_hG9rvN-navHg&libraries=places&callback=initMap"
     async defer></script>
 
 
   <script>
     $(function(){
 
-      /*var typeaheadSource = [{ id: 1, name: 'John'}, { id: 2, name: 'Alex'}, { id: 3, name: 'Terry'}];
-      $('input.typeahead').typeahead({
-          source: typeaheadSource
-      });*/
       
- var availableTags = [
-      "ActionScript",
-      "AppleScript",
-      "Asp",
-      "BASIC",
-      "C",
-      "C++",
-      "Clojure",
-      "COBOL",
-      "ColdFusion",
-      "Erlang",
-      "Fortran",
-      "Groovy",
-      "Haskell",
-      "Java",
-      "JavaScript",
-      "Lisp",
-      "Perl",
-      "PHP",
-      "Python",
-      "Ruby",
-      "Scala",
-      "Scheme"
-    ];
-    $( "#search" ).autocomplete({
-      source: availableTags
-    });
 
     })
 
