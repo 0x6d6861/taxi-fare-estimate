@@ -1,7 +1,8 @@
 var map;
 var mapOptions = {
   center: {lat: 41.85, lng: -87.65},
-  zoom: 8
+  zoom: 8,
+  disableDefaultUI: true
 }
 
 var mapService;
@@ -12,15 +13,23 @@ function initMap() {
         // Create a map object and specify the DOM element for display.
         map = new google.maps.Map(document.getElementById('map'), mapOptions); 
 
-        mapService = new DirectionService(map);             
+       
+
+        mapService = new DirectionService(map); 
+
 
       }
+
+
+
+// console.log(mapService.meta);
+
+
      
   $(document).ready(function(){
 
-      
 
-      console.log(mapService.computeTotalDistance());
+
 
 
     // Set the map's style to the initial value of the selector.
@@ -49,6 +58,14 @@ function initMap() {
         }
     });
 
+    $('#coporate_toggle, #vtype-selector').change(function(){
+        fareDiv.innerText = calculateFare().fareTime();
+    })
+
+
+
+    
+
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position){
           mapOptions.center.lat = position.coords.latitude;
@@ -61,4 +78,5 @@ function initMap() {
 
     
   })  
-      
+  
+  

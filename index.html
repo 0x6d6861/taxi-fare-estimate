@@ -19,7 +19,7 @@
   </head>
   <body>
     
-<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light" style="">
+<!--<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light" style="">
   <div class="container">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -51,27 +51,11 @@
 
         
     </form>
-<!-- 
-  <ul class="navbar-nav mr-auto">
-        <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-         <i class="fa fa-download mr-2"></i> Dropdown
-        </a>
 
-      
-
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Profile</a>
-          <a class="dropdown-item" href="#">Settings</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Logout</a>
-        </div>
-      </li>
-      </ul> -->
 
   </div>
   </div>
-</nav>
+</nav> -->
 
 <div id="map">
   Maps
@@ -107,14 +91,7 @@
           </div>
         </div>
       </form>
-    </div>
-    <div class="col-sm-4 col-6">
-           <h5>Distance: <span id="distance"></span></h5>     
-          <h5>Time: </h5>
-          <h5>Traffic: </h5>
-    </div>
-    <div class="col-sm-3 col-6">
-      <fieldset>
+       <fieldset style="display: none;">
         <select id="style-selector" class="selector-control custom-select">
           <option value="default">Default</option>
           <option value="silver">Silver</option>
@@ -123,15 +100,26 @@
           <option value="hiding">Hide features</option>
         </select>
       </fieldset>
+    </div>
+    <div class="col-sm-4 col-6">
+           <h5>Distance: <span id="distance" class="badge badge-secondary"></span></h5>     
+          <h5>Time: <span id="duration" class="badge badge-secondary"></span></h5>
+          <h5>Fare est(KSH): <span id="fare" class="badge badge-secondary"></span></h5>
+    </div>
+    <div class="col-sm-3 col-6">
+     
 
       <div class="custom-control custom-toggle d-block my-2">
-        <input type="checkbox" id="map_toggle" name="map_toggle" class="custom-control-input">
-        <label class="custom-control-label" for="map_toggle">Map</label>
+        <input type="checkbox" id="coporate_toggle" name="coporate_toggle" class="custom-control-input">
+        <label class="custom-control-label" for="coporate_toggle">Coporate</label>
       </div>
-      <div class="custom-control custom-toggle d-block my-2">
-        <input type="checkbox" id="satelite_toggle" name="satelite_toggle" class="custom-control-input">
-        <label class="custom-control-label" for="satelite_toggle">Satelite</label>
-      </div>
+      <fieldset>
+        <select id="vtype-selector" name="vtype-selector" class="selector-control custom-select">
+          <option value="b">Basic</option>
+          <option value="c">Comfort</option>
+          <option value="cp">Comfort Plus</option>
+        </select>
+      </fieldset>
       
     </div>
     </div>
@@ -142,9 +130,10 @@
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script
-  src="http://code.jquery.com/jquery-3.3.1.min.js"
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>    
+
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     

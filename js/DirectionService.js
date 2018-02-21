@@ -1,4 +1,57 @@
+var distanceDiv = document.getElementById('distance');
+var durationDiv = document.getElementById('duration');
+var fareDiv = document.getElementById('fare');
+
+var tripOption = {
+  indv: {
+    b: 29,
+    c: 30,
+    cp: 35
+  },
+  corp: {
+    b: 40,
+    c: 45,
+    cp: 55
+  }
+}
+
+var Trip = {
+  rate: 0,
+  time: 0,
+  distance: 0,
+  fareTime: function(){
+    var estimate = this.rate * this.distance + (4 * this.time) + 100;
+    return Math.ceil(estimate);
+  }
+}
+     
+var calculateFare = function (){
+    var isCorp = $('#coporate_toggle');
+    var type = $('#vtype-selector').val();
+    Trip.rate = tripOption.indv[type];
+    Trip.distance = mapService.meta.distance.value / 1000;
+    Trip.time = mapService.meta.duration.value / 60;
+    if(isCorp.is(':checked')){
+      Trip.rate = tripOption.corp[type];
+      // console.log(Trip.rate);
+    }
+    return Trip;
+  }
+
+
+var makeMarker = function( position, icon, title ) {
+ new google.maps.Marker({
+  position: position,
+  map: map,
+  icon: icon,
+  title: title
+ });
+}
+
+
+
 function DirectionService(map) {
+        this.meta = {};
         this.map = map;
         this.originPlaceId = null;
         this.destinationPlaceId = null;
@@ -15,7 +68,7 @@ function DirectionService(map) {
         var destinationAutocomplete = new google.maps.places.Autocomplete(
             destinationInput, {placeIdOnly: true});
 
-        
+   
 
         //this.setupClickListener('changemode-walking', 'WALKING');
         //this.setupClickListener('changemode-transit', 'TRANSIT');
@@ -23,7 +76,7 @@ function DirectionService(map) {
 
         this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
         this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
-        this.computeTotalDistance();
+        
 
         //this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(originInput);
         //this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(destinationInput);
@@ -65,7 +118,6 @@ function DirectionService(map) {
           return;
         }
         var me = this;
-
         this.directionsService.route({
           origin: {'placeId': this.originPlaceId},
           destination: {'placeId': this.destinationPlaceId},
@@ -73,25 +125,22 @@ function DirectionService(map) {
         }, function(response, status) {
           if (status === 'OK') {
             me.directionsDisplay.setDirections(response);
+
+            
+            me.meta =  response.routes[0].legs[0];
+            // console.log(new_meta);
+            distanceDiv.innerText = me.meta.distance.text;
+            durationDiv.innerText = me.meta.duration.text;
+            fareDiv.innerText = calculateFare().fareTime();
           } else {
             window.alert('Directions request failed due to ' + status);
           }
         });
+              
+                    // 
+
       };
 
-      DirectionService.prototype.computeTotalDistance = function(){
-        this.directionsDisplay.addListener('directions_changed', function() {
-          var result = this.directionsDisplay.getDirections()
-          var total = 0;
-          var myroute = result.routes[0];
-          for (var i = 0; i < myroute.legs.length; i++) {
-            total += myroute.legs[i].distance.value;
-          }
-          total = total / 1000;
-          return {distance: total, unit: 'km'};
-        });
-      }
-      
 
 
 
