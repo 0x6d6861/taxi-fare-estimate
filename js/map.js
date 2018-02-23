@@ -29,7 +29,7 @@ function initMap() {
   $(document).ready(function(){
 
 
-
+    $('#trip').addClass('fadeIn');
 
 
     // Set the map's style to the initial value of the selector.
@@ -59,7 +59,8 @@ function initMap() {
     });
 
     $('#coporate_toggle, #vtype-selector').change(function(){
-        fareDiv.innerText = calculateFare().fareTime();
+        // fareDiv.innerText = calculateFare().fareTime();
+        cars_card.toggleClass('fadeInUp');
     })
 
 
@@ -70,7 +71,7 @@ function initMap() {
         navigator.geolocation.getCurrentPosition(function(position){
           mapOptions.center.lat = position.coords.latitude;
           mapOptions.center.lng = position.coords.longitude;
-          mapOptions.zoom = 10;          
+          mapOptions.zoom = 14;          
           map.setOptions(mapOptions);
         });
 

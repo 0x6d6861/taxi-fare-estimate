@@ -2,6 +2,9 @@ var distanceDiv = document.getElementById('distance');
 var durationDiv = document.getElementById('duration');
 var fareDiv = document.getElementById('fare');
 
+var cars_card = document.getElementById('cars');
+
+
 var tripOption = {
   indv: {
     b: 29,
@@ -132,6 +135,18 @@ function DirectionService(map) {
             distanceDiv.innerText = me.meta.distance.text;
             durationDiv.innerText = me.meta.duration.text;
             fareDiv.innerText = calculateFare().fareTime();
+
+            var hasClass = cars_card.classList.contains('fadeInUp');
+              
+              if(!hasClass){
+                  // cars_card.classList.add('display_block');
+                   cars_card.classList.add('fadeInUpBig');
+              }
+            
+              console.log(response.routes);
+
+
+
           } else {
             window.alert('Directions request failed due to ' + status);
           }
