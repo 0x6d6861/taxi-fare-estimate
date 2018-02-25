@@ -75,11 +75,11 @@ function DirectionService(map) {
 
         var dirOptions = {
           polylineOptions: {
-            strokeColor: '#17c671',
+            strokeColor: '#ffb400',
             strokeWeight: 5,
           },
           markerOptions: {
-            draggable: true
+            draggable: false,
           },
           suppressMarkers: false
         };
