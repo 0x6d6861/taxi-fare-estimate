@@ -1,9 +1,10 @@
 var map;
 var mapOptions = {
-  center: {lat: 41.85, lng: -87.65},
-  zoom: 8,
+  center: {lat: -1.3028618, lng: 36.7073085},
+  zoom: 10,
   disableDefaultUI: true
 }
+
 
 var mapService;
 
@@ -37,6 +38,8 @@ function initMap() {
 
     map.setOptions({styles: styles[styleSelector.value]});
 
+    map.setMapTypeId('terrain');
+
     // Apply new JSON when the user selects a different style.
     styleSelector.addEventListener('change', function() {
       map.setOptions({styles: styles[styleSelector.value]});
@@ -59,7 +62,7 @@ function initMap() {
     });
 
     $('#coporate_toggle, #vtype-selector').change(function(){
-        // fareDiv.innerText = calculateFare().fareTime();
+        calculateFare();
         cars_card.toggleClass('fadeInUp');
     })
 
@@ -76,6 +79,10 @@ function initMap() {
         });
 
     }
+
+
+
+   
 
     
   })  

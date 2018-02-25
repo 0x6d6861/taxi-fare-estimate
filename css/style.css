@@ -47,6 +47,11 @@ body {
     opacity: .3;
 }
 
+#settings {
+  background-color: #e9ecef;
+  border-bottom: solid #cfcfd0 1px;
+}
+
 #settings .card-body{
   padding-top: 0;
 }
@@ -65,7 +70,7 @@ body {
   padding-bottom: 12px;
 }
 
-#trip.card h6{
+h6{
     text-transform: uppercase;
     font-size: .7rem;
     color: #ababab;
@@ -93,10 +98,39 @@ body {
   opacity: 0;
 }
 
+#cars.card .col-4{
+  /* border: solid 1px black; */
+}
+
+#cars.card .col-4 img{
+  width: 100% !important;
+  transform: scaleX(-1);
+}
+
 .display_block{
   display: block;
 }
 
 .custom-select{
   border-radius: 0 !important;
+}
+
+.cars-content{
+  background-color: #E9ECEF;
+    margin-left: -15px;
+    margin-right: -15px;
+    padding-bottom: 5px;
+}
+
+.cars-content .price{
+  font-size: 32px;
+    font-weight: 500;
+    margin-right: 15px;
+}
+
+.cars-content .price::before { 
+  content: "KSH ";
+  font-size: 10px;
+  font-weight: 200;
+  vertical-align: super;
 }

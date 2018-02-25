@@ -27,9 +27,30 @@
 </div>
 
 
-<div class="card animated" id="cars">
-  <div class="card-body">
-    helllo
+<div class="card text-center animated" id="cars">
+  <div class="row" style="margin: 0;">
+      <div class="col-4">
+          <img src="images/basic.png" class="img-responsive" alt="Basic Car">
+          <div class="cars-content">
+              <h6>Basic</h6>
+              <span class="price" id="price_basic">0</span>
+          </div>
+          
+        </div>
+        <div class="col-4">
+            <img src="images/comfort.png" class="img-responsive" alt="Comfort Car">
+            <div class="cars-content">
+                <h6>Comfort</h6>
+                <span class="price" id="price_comfort">0</span>
+            </div>
+        </div>
+        <div class="col-4">
+            <img src="images/comfortplus.png" class="img-responsive" alt="Comfort Plus Car">
+            <div class="cars-content">
+                <h6>Comfort Plus</h6>
+                <span class="price" id="price_comfortplus">0</span>
+            </div>
+        </div>
   </div>
 </div>
 
@@ -79,7 +100,6 @@
         <label class="custom-control-label" for="coporate_toggle">Coporate Trip</label>
       </div>
       
-      <span id="fare"></span>
 
 
 
@@ -87,7 +107,7 @@
     </div>
   </div>
 
-<div class="collapse" id="settings" style="background-color: #212529">
+<div class="collapse" id="settings">
 
   <div class="card-body">
 
@@ -98,15 +118,8 @@
           <option value="silver">Silver</option>
           <option value="night">Night mode</option>
           <option value="retro" selected="selected">Retro</option>
+          <option value="custom">Custom</option>
           <option value="hiding">Hide features</option>
-        </select>
-      </fieldset>
-      <fieldset>
-        <label for="vtype-selector"><small>Car Type</small></label>
-        <select id="vtype-selector" name="vtype-selector" class="selector-control custom-select">
-          <option value="b">Basic</option>
-          <option value="c">Comfort</option>
-          <option value="cp">Comfort Plus</option>
         </select>
       </fieldset>
   </div>

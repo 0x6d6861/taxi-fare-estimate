@@ -1,6 +1,10 @@
 var distanceDiv = document.getElementById('distance');
 var durationDiv = document.getElementById('duration');
-var fareDiv = document.getElementById('fare');
+// var fareDiv = document.getElementById('fare');
+
+var price_comfortplus = document.getElementById('price_comfortplus');
+var price_comfort = document.getElementById('price_comfort');
+var price_basic = document.getElementById('price_basic');
 
 var cars_card = document.getElementById('cars');
 
@@ -9,51 +13,50 @@ var tripOption = {
   indv: {
     b: 29,
     c: 30,
-    cp: 35
+    cp: 35,
+    base: 100
   },
   corp: {
     b: 40,
     c: 45,
-    cp: 55
+    cp: 55,
+    base: 120
   }
 }
 
 var Trip = {
-  rate: 0,
   time: 0,
   distance: 0,
-  fareTime: function(){
-    var estimate = this.rate * this.distance + (4 * this.time) + 100;
-    return Math.ceil(estimate);
+  tripOption,
+  fare: function(){
+    return {
+      basic: Math.ceil(this.tripOption.b * this.distance + (4 * this.time) + this.tripOption.base),
+      comfort : Math.ceil(this.tripOption.c * this.distance + (4 * this.time) + this.tripOption.base),
+      comfortplus: Math.ceil(this.tripOption.cp * this.distance + (4 * this.time) + this.tripOption.base)
+    }
   }
 }
      
 var calculateFare = function (){
     var isCorp = $('#coporate_toggle');
-    var type = $('#vtype-selector').val();
-    Trip.rate = tripOption.indv[type];
     Trip.distance = mapService.meta.distance.value / 1000;
     Trip.time = mapService.meta.duration.value / 60;
+    Trip.tripOption = tripOption.indv;
     if(isCorp.is(':checked')){
-      Trip.rate = tripOption.corp[type];
+      Trip.tripOption = tripOption.corp;
       // console.log(Trip.rate);
     }
-    return Trip;
+    price_comfortplus.innerText = Trip.fare().comfortplus;
+    price_comfort.innerText = Trip.fare().comfort;
+    price_basic.innerText = Trip.fare().basic;
+    // return Trip;
+    // console.log(Trip);
   }
 
-
-var makeMarker = function( position, icon, title ) {
- new google.maps.Marker({
-  position: position,
-  map: map,
-  icon: icon,
-  title: title
- });
-}
-
-
-
 function DirectionService(map) {
+
+
+
         this.meta = {};
         this.map = map;
         this.originPlaceId = null;
@@ -63,8 +66,30 @@ function DirectionService(map) {
         var destinationInput = document.getElementById('destination');
         //var modeSelector = document.getElementById('mode-selector');
         this.directionsService = new google.maps.DirectionsService;
-        this.directionsDisplay = new google.maps.DirectionsRenderer;
+
+        var contentString = "Hello";
+            var infowindow = new google.maps.InfoWindow({
+              content: contentString
+            });
+
+
+        var dirOptions = {
+          polylineOptions: {
+            strokeColor: '#17c671',
+            strokeWeight: 5,
+          },
+          markerOptions: {
+            draggable: true
+          },
+          suppressMarkers: false
+        };
+
+        this.directionsDisplay = new google.maps.DirectionsRenderer(dirOptions);
+
+        
         this.directionsDisplay.setMap(map);
+
+        
 
         var originAutocomplete = new google.maps.places.Autocomplete(
             originInput, {placeIdOnly: true});
@@ -124,17 +149,24 @@ function DirectionService(map) {
         this.directionsService.route({
           origin: {'placeId': this.originPlaceId},
           destination: {'placeId': this.destinationPlaceId},
+          provideRouteAlternatives: true,
           travelMode: this.travelMode
         }, function(response, status) {
           if (status === 'OK') {
-            me.directionsDisplay.setDirections(response);
 
+            //map.fitBounds(bounds);
+            
+          
+
+            me.directionsDisplay.setDirections(response);
             
             me.meta =  response.routes[0].legs[0];
-            // console.log(new_meta);
+            console.log(response);
             distanceDiv.innerText = me.meta.distance.text;
             durationDiv.innerText = me.meta.duration.text;
-            fareDiv.innerText = calculateFare().fareTime();
+
+
+            calculateFare()
 
             var hasClass = cars_card.classList.contains('fadeInUp');
               
@@ -143,7 +175,7 @@ function DirectionService(map) {
                    cars_card.classList.add('fadeInUpBig');
               }
             
-              console.log(response.routes);
+              // console.log(response.routes);
 
 
 
@@ -152,6 +184,7 @@ function DirectionService(map) {
           }
         });
               
+        
                     // 
 
       };
@@ -162,4 +195,5 @@ function DirectionService(map) {
       
 
 
+      
       
