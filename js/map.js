@@ -76,6 +76,12 @@ function initMap() {
           mapOptions.center.lng = position.coords.longitude;
           mapOptions.zoom = 14;          
           map.setOptions(mapOptions);
+        
+          var marker = new google.maps.Marker({
+            position: {lat: position.coords.latitude, lng: position.coords.longitude},
+            map: map,
+            title: 'Hello World!'
+          });
         });
 
     }
