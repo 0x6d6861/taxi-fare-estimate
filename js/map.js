@@ -3,55 +3,30 @@ var mapOptions = {
   center: {lat: -1.3028618, lng: 36.7073085},
   zoom: 10,
   disableDefaultUI: true
-}
+};
 
 
 var mapService;
 
 function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        mapService = new DirectionService(map);
+}
 
-
-        // Create a map object and specify the DOM element for display.
-        map = new google.maps.Map(document.getElementById('map'), mapOptions); 
-
-       
-
-        mapService = new DirectionService(map); 
-
-
-      }
-
-
-
-// console.log(mapService.meta);
-
-
-     
-  $(document).ready(function(){
-
+$(document).ready(function(){
 
     $('#trip').addClass('fadeIn');
 
+    var styleSelector = $('#style-selector');
+    console.log(map);
 
-    // Set the map's style to the initial value of the selector.
-    var styleSelector = $('#style-selector')[0];
-
-    map.setOptions({styles: styles[styleSelector.value]});
+    map.setOptions({styles: styles[styleSelector.val()]});
 
     map.setMapTypeId('terrain');
 
-    // Apply new JSON when the user selects a different style.
     styleSelector.addEventListener('change', function() {
-      map.setOptions({styles: styles[styleSelector.value]});
+      map.setOptions({styles: styles[styleSelector.val()]});
     });  
-
-  //   $('#satelite_toggle').change(function(){
-  //     if($(this).is(':checked')) {
-  //         map.setMapTypeId('hybrid');
-  //     } else {
-  //         map.setMapTypeId('roadmap');
-  //     }
-  // });
 
     $('#map_toggle').change(function(){
         if($(this).is(':checked')) {
@@ -63,8 +38,7 @@ function initMap() {
 
     $('#coporate_toggle, #vtype-selector').change(function(){
         calculateFare();
-        cars_card.toggleClass('fadeInUp');
-    })
+    });
 
 
 
@@ -76,21 +50,29 @@ function initMap() {
           mapOptions.center.lng = position.coords.longitude;
           mapOptions.zoom = 14;          
           map.setOptions(mapOptions);
-        
-          var marker = new google.maps.Marker({
-            position: {lat: position.coords.latitude, lng: position.coords.longitude},
-            map: map,
-            title: 'Hello World!'
-          });
+
+            var geocoder = new google.maps.Geocoder;
+            var infowindow = new google.maps.InfoWindow;
+
+            geocoder.geocode({'location': mapOptions.center}, function(results, status) {
+                if (status === 'OK') {
+                    if (results[0]) {
+                        map.setZoom(11);
+                        mapService.originPlaceId = results[0].place_id;
+                        $('#origin').val(results[0].formatted_address);
+                        mapService.route();
+                    } else {
+                        window.alert('No results found');
+                    }
+                } else {
+                    window.alert('Geocoder failed due to: ' + status);
+                }
+            });
+
         });
 
     }
 
-
-
-   
-
-    
-  })  
+  });
   
   

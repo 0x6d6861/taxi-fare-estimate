@@ -6,14 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="/assets/dist/css/shards.min.css?v=2.0.1">
+  <link rel="stylesheet" href="css/custom.min.css">
 
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-    <!-- <link rel="stylesheet" href="/assets/dist/css/shards-extras.min.css?v=2.0.1"> -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="css/animate.css">
 
   <link rel="stylesheet" href="css/style.css">
     <title></title>
@@ -73,17 +70,22 @@
           <div class="input-group input-group-seamless">
     <div class="input-group-prepend">
         <div class="input-group-text">
-            From:
+            <i class="fa fa-map-pin"></i>
         </div>
     </div>
-    <input type="text" name="origin" id="origin" class="form-control" aria-label="Text input with checkbox" style="border-radius: 0px;padding-left: 60px;">
+              <!--<div class="input-group-append">
+                  <button type="button" class="btn btn-outline-light">
+                      <i class="fa fa-compass"></i>
+                  </button>
+              </div>-->
+    <input type="text" name="origin" id="origin" class="form-control" aria-label="Text input with checkbox" style="border-radius: 0px;">
 </div>
       </div>
         <div class="form-group">
          <div class="input-group input-group-seamless">
               <div class="input-group-prepend">
                   <div class="input-group-text">
-                      To:
+                      <i class="fa fa-flag"></i>
                   </div>
               </div>
               <input type="text"  name="destination" id="destination"  class="form-control" aria-label="Text input with checkbox" style="border-radius: 0px;padding-left: 40px;">
@@ -152,13 +154,12 @@
     
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
-    <script src="/assets/dist/js/shards.min.js"></script>
+    <script src="js/shards.min.js"></script>
 
-    <script src="/js/DirectionService.js"></script>
+    <script src="js/DirectionService.js"></script>
 
-   <script src="/js/map.js"></script>
-   <script src="/js/mapStyles.js"></script>
+<script src="js/mapStyles.js"></script>
+<script src="js/map.js"></script>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbmUlBnah_zfndo-p66h_hG9rvN-navHg&libraries=places&callback=initMap"
     async defer></script>
@@ -167,11 +168,11 @@
   <script>
     $(function(){
 
-      
+
 
     })
 
-  
+
 
   </script>
 

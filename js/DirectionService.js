@@ -1,6 +1,5 @@
 var distanceDiv = document.getElementById('distance');
 var durationDiv = document.getElementById('duration');
-// var fareDiv = document.getElementById('fare');
 
 var price_comfortplus = document.getElementById('price_comfortplus');
 var price_comfort = document.getElementById('price_comfort');
@@ -8,34 +7,37 @@ var price_basic = document.getElementById('price_basic');
 
 var cars_card = document.getElementById('cars');
 
-
 var tripOption = {
   indv: {
-    b: 29,
-    c: 30,
-    cp: 35,
+    b: {rate : 29, min: 200 },
+    c: {rate : 40, min: 200 },
+    cp: {rate : 50, min: 270 },
     base: 100
   },
   corp: {
-    b: 40,
-    c: 45,
-    cp: 55,
-    base: 120
+      b: {rate : 40, min: 270 },
+      c: {rate : 45, min: 270 },
+      cp: {rate : 55, min: 270 },
+    base: 100
   }
-}
+};
 
 var Trip = {
   time: 0,
   distance: 0,
-  tripOption,
+  tripOption: null,
   fare: function(){
     return {
-      basic: Math.ceil(this.tripOption.b * this.distance + (4 * this.time) + this.tripOption.base),
-      comfort : Math.ceil(this.tripOption.c * this.distance + (4 * this.time) + this.tripOption.base),
-      comfortplus: Math.ceil(this.tripOption.cp * this.distance + (4 * this.time) + this.tripOption.base)
+      basic: this.calculate(this.tripOption.b),
+      comfort : this.calculate(this.tripOption.c),
+      comfortplus: this.calculate(this.tripOption.cp)
     }
-  }
-}
+  },
+    calculate: function (rate) {
+      var fare = Math.ceil(rate.rate * this.distance + (4 * this.time) + this.tripOption.base);
+        return (fare < rate.min) ? rate.min : fare;
+    }
+};
      
 var calculateFare = function (){
     var isCorp = $('#coporate_toggle');
@@ -44,18 +46,13 @@ var calculateFare = function (){
     Trip.tripOption = tripOption.indv;
     if(isCorp.is(':checked')){
       Trip.tripOption = tripOption.corp;
-      // console.log(Trip.rate);
     }
     price_comfortplus.innerText = Trip.fare().comfortplus;
     price_comfort.innerText = Trip.fare().comfort;
     price_basic.innerText = Trip.fare().basic;
-    // return Trip;
-    // console.log(Trip);
-  }
+  };
 
 function DirectionService(map) {
-
-
 
         this.meta = {};
         this.map = map;
@@ -64,22 +61,15 @@ function DirectionService(map) {
         this.travelMode = 'DRIVING';
         var originInput = document.getElementById('origin');
         var destinationInput = document.getElementById('destination');
-        //var modeSelector = document.getElementById('mode-selector');
         this.directionsService = new google.maps.DirectionsService;
-
-        var contentString = "Hello";
-            var infowindow = new google.maps.InfoWindow({
-              content: contentString
-            });
-
 
         var dirOptions = {
           polylineOptions: {
             strokeColor: '#ffb400',
-            strokeWeight: 5,
+            strokeWeight: 5
           },
           markerOptions: {
-            draggable: false,
+            draggable: false
           },
           suppressMarkers: false
         };
@@ -89,38 +79,17 @@ function DirectionService(map) {
         
         this.directionsDisplay.setMap(map);
 
-        
-
         var originAutocomplete = new google.maps.places.Autocomplete(
             originInput, {placeIdOnly: true});
         var destinationAutocomplete = new google.maps.places.Autocomplete(
             destinationInput, {placeIdOnly: true});
 
-   
-
-        //this.setupClickListener('changemode-walking', 'WALKING');
-        //this.setupClickListener('changemode-transit', 'TRANSIT');
-        //this.setupClickListener('changemode-driving', 'DRIVING');
 
         this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
         this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
-        
 
-        //this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(originInput);
-        //this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(destinationInput);
-        //this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(modeSelector);
       }
 
-      // Sets a listener on a radio button to change the filter type on Places
-      // Autocomplete.
-      // DirectionService.prototype.setupClickListener = function(id, mode) {
-      //   var radioButton = document.getElementById(id);
-      //   var me = this;
-      //   radioButton.addEventListener('click', function() {
-      //     me.travelMode = mode;
-      //     me.route();
-      //   });
-      // };
 
       DirectionService.prototype.setupPlaceChangedListener = function(autocomplete, mode) {
         var me = this;
@@ -136,6 +105,7 @@ function DirectionService(map) {
           } else {
             me.destinationPlaceId = place.place_id;
           }
+          console.log(me);
           me.route();
         });
 
@@ -149,14 +119,10 @@ function DirectionService(map) {
         this.directionsService.route({
           origin: {'placeId': this.originPlaceId},
           destination: {'placeId': this.destinationPlaceId},
-          provideRouteAlternatives: true,
+          provideRouteAlternatives: false,
           travelMode: this.travelMode
         }, function(response, status) {
           if (status === 'OK') {
-
-            //map.fitBounds(bounds);
-            
-          
 
             me.directionsDisplay.setDirections(response);
             
@@ -165,27 +131,18 @@ function DirectionService(map) {
             distanceDiv.innerText = me.meta.distance.text;
             durationDiv.innerText = me.meta.duration.text;
 
-
-            calculateFare()
+            calculateFare();
 
             var hasClass = cars_card.classList.contains('fadeInUp');
               
               if(!hasClass){
-                  // cars_card.classList.add('display_block');
                    cars_card.classList.add('fadeInUpBig');
               }
-            
-              // console.log(response.routes);
-
-
 
           } else {
             window.alert('Directions request failed due to ' + status);
           }
         });
-              
-        
-                    // 
 
       };
 
