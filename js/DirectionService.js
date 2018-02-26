@@ -4,6 +4,9 @@ const durationDiv = document.getElementById('duration');
 const price_comfortplus = document.getElementById('price_comfortplus');
 const price_comfort = document.getElementById('price_comfort');
 const price_basic = document.getElementById('price_basic');
+const price_bodaboda = document.getElementById('price_bodaboda');
+const price_goods = document.getElementById('price_goods');
+const price_ladybug = document.getElementById('price_ladybug');
 
 const cars_card = document.getElementById('cars');
 
@@ -12,12 +15,18 @@ const tripOption = {
         b: {rate: 29, min: 200},
         c: {rate: 40, min: 200},
         cp: {rate: 50, min: 270},
+        boda: {rate: 20, min: 50},
+        ladybug: {rate: 40, min: 200},
+        goods: {rate: 60, min: 300},
         base: 100
     },
     corp: {
         b: {rate: 40, min: 270},
         c: {rate: 45, min: 270},
         cp: {rate: 55, min: 270},
+        boda: {rate: 20, min: 270},
+        ladybug: {rate: 45, min: 270},
+        goods: {rate: 60, min: 300},
         base: 100
     }
 };
@@ -30,7 +39,10 @@ const Trip = {
         return {
             basic: this.calculate(this.tripOption.b),
             comfort: this.calculate(this.tripOption.c),
-            comfortplus: this.calculate(this.tripOption.cp)
+            comfortplus: this.calculate(this.tripOption.cp),
+            boda: this.calculate(this.tripOption.boda),
+            ladybug: this.calculate(this.tripOption.ladybug),
+            goods: this.calculate(this.tripOption.goods)
         }
     },
     calculate: function (rate) {
@@ -50,6 +62,9 @@ const calculateFare = function () {
     price_comfortplus.innerText = Trip.fare().comfortplus;
     price_comfort.innerText = Trip.fare().comfort;
     price_basic.innerText = Trip.fare().basic;
+    price_bodaboda.innerText = Trip.fare().boda;
+    price_ladybug.innerText =  Trip.fare().ladybug;
+    price_goods.innerText = Trip.fare().goods;
 };
 
 function DirectionService(map) {
