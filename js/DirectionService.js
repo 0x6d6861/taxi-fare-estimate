@@ -143,6 +143,8 @@ function DirectionService(map) {
           if (status === 'OK') {
 
             me.directionsDisplay.setDirections(response);
+
+            me.driveSim(response);
             
             me.meta =  response.routes[0].legs[0];
 
@@ -163,6 +165,23 @@ function DirectionService(map) {
             //       request_btn.style.display = "block";
             //         request_btn.classList.add('fadeIn');
             //   }
+
+            // var flightPlanCoordinates = response.routes[0].overview_path;
+            //   var flightPath = new google.maps.Polyline({
+            //     path: flightPlanCoordinates,
+            //     geodesic: true,
+            //     strokeColor: '#FF0000',
+            //     strokeOpacity: 1.0,
+            //     strokeWeight: 2,
+            //     strokeOpacity: 0.5,
+            //     zIndex: 1
+            //   });
+      
+            //   flightPath.setMap(map);
+
+            // console.log(response);
+
+              
               
 
           } else {
@@ -172,6 +191,35 @@ function DirectionService(map) {
 
       };
 
+
+      DirectionService.prototype.driveSim  = function(response){
+
+        
+        var path = response.routes[0].overview_path;
+        var maxIter=path.length;
+
+        // console.log(path);
+    
+        taxiCab=new google.maps.Marker({
+           position: path[0],
+           map: map, 
+        });
+        var numSteps = 250;
+        var delay = 500, count = 0;
+        function delayed () {
+          count += 1;
+          taxiCab.setPosition({lat:path[count].lat(),lng:path[count].lng()});
+          
+          if (count < maxIter-1) {
+            setTimeout(delayed, delay);
+          }
+        }
+        delayed();
+
+
+        
+       
+    } 
 
 
 

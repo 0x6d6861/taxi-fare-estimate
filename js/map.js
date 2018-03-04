@@ -128,13 +128,16 @@ telInput.on("keyup change", reset);
       $('#request-little').css('display', 'block').addClass('fadeIn');
     }
     
-  })
+  });
 
   $('#booking-form').on('submit', function(e){
       e.preventDefault();
       $('#confirm_trip').html('<i class="fa fa-spinner fa-pulse"></i>');      
       alert("Hello");
-  })
+  });
+
+
+  
 
   });
 
