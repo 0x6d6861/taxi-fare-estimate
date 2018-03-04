@@ -10,6 +10,9 @@ const price_ladybug = document.getElementById('price_ladybug');
 
 const cars_card = document.getElementById('cars');
 
+
+const request_btn = document.getElementById('request-btn');
+
 const tripOption = {
     indv: {
         b: {rate: 29, min: 200},
@@ -152,7 +155,15 @@ function DirectionService(map) {
 
               if(!hasClass){
                    cars_card.classList.add('fadeInUpBig');
+                   request_btn.style.display = "block";
+                    request_btn.classList.add('fadeIn');
               }
+
+            //   if(!request_btn.classList.contains('fadeInUp')){
+            //       request_btn.style.display = "block";
+            //         request_btn.classList.add('fadeIn');
+            //   }
+              
 
           } else {
             window.alert('Directions request failed due to ' + status);
