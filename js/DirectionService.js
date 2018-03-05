@@ -81,15 +81,51 @@ function DirectionService(map) {
     const destinationInput = document.getElementById('destination');
     this.directionsService = new google.maps.DirectionsService;
 
+    this.directionInfo = new google.maps.InfoWindow();
+    this.directionInfo.setContent('<span class="badge mr-3 badge-squared badge-warning">Warning</span>')
+
+
+    this.origin_marker = new google.maps.Marker({
+        // position: me.meta.start_location,
+        map: this.map,
+        // title: 'Hello World!',
+        icon: {
+            url: '../images/start_marker.svg',
+            // This marker is 20 pixels wide by 32 pixels high.
+            size: new google.maps.Size(32, 32),
+            // The origin for this image is (0, 0).
+            origin: new google.maps.Point(0, 0),
+            // The anchor for this image is the base of the flagpole at (0, 32).
+            anchor: new google.maps.Point(16, 32)
+        }
+    });
+
+
+    this.destination_marker = new google.maps.Marker({
+        // position: me.meta.end_location,
+        map: this.map,
+        // title: 'Hello World!',
+        icon: {
+            url: '../images/map-marker.svg',
+            // This marker is 20 pixels wide by 32 pixels high.
+            size: new google.maps.Size(32, 32),
+            // The origin for this image is (0, 0).
+            origin: new google.maps.Point(0, 0),
+            // The anchor for this image is the base of the flagpole at (0, 32).
+            anchor: new google.maps.Point(16, 32)
+        }
+    });
+
     const dirOptions = {
         polylineOptions: {
-            strokeColor: '#ffb400',
+            // strokeColor: '#ffb400',
+            strokeColor: '#c4183c',
             strokeWeight: 5
         },
         markerOptions: {
             draggable: false
         },
-        suppressMarkers: false
+        suppressMarkers: true,
     };
 
     this.directionsDisplay = new google.maps.DirectionsRenderer(dirOptions);
@@ -130,6 +166,8 @@ function DirectionService(map) {
       };
 
       DirectionService.prototype.route = function() {
+
+
         if (!this.originPlaceId || !this.destinationPlaceId) {
           return;
         }
@@ -141,10 +179,24 @@ function DirectionService(map) {
           travelMode: this.travelMode
         }, function(response, status) {
           if (status === 'OK') {
+              me.directionsDisplay.setDirections(response)
 
-            me.directionsDisplay.setDirections(response);
+                me.meta =  response.routes[0].legs[0];
+
+              // console.log(me.meta);
+
+              // console.log(me.meta.start_location);
+
+                me.origin_marker.setPosition(me.meta.start_location);
+              me.destination_marker.setPosition(me.meta.end_location);
+
+              me.directionInfo.setContent('<span class="badge mr-0 badge-squared badge-secondary">' + me.meta.distance.text + '</span><span class="badge mr-3 badge-squared badge-light">' + me.meta.end_address + '</span>');
+              // me.directionInfo.open(me.map, me.destination_marker);
+
+
+            // console.log(response);
             
-            me.meta =  response.routes[0].legs[0];
+
 
             distanceDiv.innerText = me.meta.distance.text;
             durationDiv.innerText = me.meta.duration.text;

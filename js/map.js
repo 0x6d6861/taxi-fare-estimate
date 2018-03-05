@@ -96,6 +96,24 @@ telInput.on("keyup change", reset);
           mapOptions.zoom = 13;
           map.setOptions(mapOptions);
 
+            /*var image = {
+                url: '../images/map-marker.svg',
+                // This marker is 20 pixels wide by 32 pixels high.
+                size: new google.maps.Size(32, 32),
+                // The origin for this image is (0, 0).
+                origin: new google.maps.Point(0, 0),
+                // The anchor for this image is the base of the flagpole at (0, 32).
+                anchor: new google.maps.Point(16, 32)
+            };
+
+            var marker = new google.maps.Marker({
+                position: mapOptions.center,
+                map: map,
+                title: 'Hello World!',
+                icon: image
+            });*/
+
+
             const geocoder = new google.maps.Geocoder;
 
             geocoder.geocode({'location': mapOptions.center}, (results, status) => {
@@ -134,7 +152,12 @@ telInput.on("keyup change", reset);
       e.preventDefault();
       $('#confirm_trip').html('<i class="fa fa-spinner fa-pulse"></i>');      
       alert("Hello");
-  })
+  });
+
+
+
+
+
 
   });
 
