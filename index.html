@@ -6,21 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.css">
+    <!-- <link rel="stylesheet" href="css/bootstrap.css"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/custom.min.css">
+  <!-- <link rel="stylesheet" href="css/custom.min.css"> -->
 
-    <link rel="stylesheet" href="css/animate.css">
+  <link rel="stylesheet" href="css/shards.css">
+  <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
 
+    <!-- <link rel="stylesheet" href="css/animate.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="js/assets/build/css/intlTelInput.css">
   <link rel="stylesheet" href="css/style.css">
-    <title></title>
+    <title>Visitor's Booking</title>
   </head>
   <body>
     
 
 
 <div id="map">
-  Map loading..
+    <i class="fa fa-spinner fa-pulse"></i> Map loading..
 </div>
 
 
@@ -117,12 +123,16 @@
        
     </div>
     <div class="col-sm-12">
-     
+      <button type="button" class="btn btn-danger btn-block btn-squared animated" id="request-btn">
+        <span>REQUEST A LITTLE</span> <i class="fa fa-arrow-right pull-right"></i>        
+      </button>
+      
+  
 
-      <div class="custom-control custom-toggle d-block my-2">
+      <!-- <div class="custom-control custom-toggle d-block my-2">
         <input type="checkbox" id="coporate_toggle" name="coporate_toggle" class="custom-control-input">
         <label class="custom-control-label" for="coporate_toggle">Coporate Trip</label>
-      </div>
+      </div> -->
       
 
 
@@ -135,7 +145,7 @@
 
   <div class="card-body">
 
-    <fieldset style="">
+    <fieldset>
       <label for="style-selector"><small>Map Style</small></label>
         <select id="style-selector" class="selector-control custom-select">
           <option value="default">Default</option>
@@ -163,11 +173,72 @@
   </div>
 </div>
 
+<div class="card animated" id="request-little">
+    <div class="card-header">
+      <h5 class="mb-0 w-100">Confirm Booking</h5>
+    </div>
+    <div class="card-body">
+        <form id="booking-form" name="booking-form" method="POST" action="#">
+            <div class="form-group">
+                <div class="input-group input-group-seamless">
+                  <span class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fa fa-user"></i> 
+                    </span>
+                  </span>
+                  <input type="text" class="form-control" id="fullname" placeholder="Full Name" required></div>
+            </div>
+            <div class="form-group">
+                <div class="input-group input-group-seamless">
+                  <!-- <span class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fa fa-mobile"></i> 
+                    </span>
+                  </span> -->
+                  <input type="tel" class="form-control" id="phone" required></div>
+                  <span id="error-msg" class="invalid-feedback hide">Invalid number</span>
+                  <small style="font-size: 65%;" id="phoneHelp" class="form-text text-muted">We'll never share your phone number with anyone else.</small>
+            </div>
+            <div class="form-group">
+                <div class="input-group input-group-seamless">
+                  <span class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fa fa-calendar"></i> 
+                    </span>
+                  </span>
+                  <input type="text" class="form-control" id="tripdate">
+                </div>
+                </div>
+            <div class="form-group">
+                <fieldset>
+                  <select class="custom-select" required="required">
+                    <option value="">Select Vehicle Type</option>
+                    <option value="b">Basic</option>
+                    <option value="c">Comfort</option>
+                    <option value="cp">Comfort+</option>
+                    <option value="lb">LadyBUG</option>
+                  </select>
+                </fieldset>
+            </div>
+            
+            <button id="confirm_trip" type="submit" class="btn btn-info btn-block btn-squared">
+              <span>CONFIRM REQUEST</span>
+            </button>
+          </form>
+      </div>
+      </div>
+
 <script
   src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
 
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script src="js/assets/build/js/intlTelInput.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+
+<script src="js/bootstrap-datetimepicker.min.js"></script>
 
     <script src="js/shards.min.js"></script>
 
@@ -177,5 +248,18 @@
 <script src="js/map.js"></script>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbmUlBnah_zfndo-p66h_hG9rvN-navHg&libraries=places&callback=initMap"></script>
+  
+    <script>
+        $('#tripdate').datetimepicker({
+          // format: 'dd-mm-yyyy hh:ii',
+            calendarWeeks: true,
+            autoclose: true,
+            todayHighlight: true,
+            // todayBtn: true,
+            startDate: 'today',
+            endDate: '+10d',
+        });
+      </script>
+  
   </body>
 </html>

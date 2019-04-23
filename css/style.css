@@ -1,7 +1,16 @@
+.iti-flag {background-image: url("../js/assets/build/img/flags.png");}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  .iti-flag {background-image: url("../js/assets/build/img/flags@2x.png");}
+}
+
 body {
   margin: 0;
 }
 
+.form-control{
+  border-radius: 0 !important;
+}
 
 
 #map {
@@ -63,6 +72,7 @@ body {
   left: 6%;
   max-width: 300px;
   opacity: 0;
+  z-index: 2;
 }
 
 #trip.card .col-6{
@@ -80,6 +90,7 @@ h6{
 #trip.card .card-header{
   border-radius: 0;
   background-color: #212529;
+  /* background-color: #C4183C; */
 }
 
 #trip.card .card-header h5 {
@@ -134,4 +145,35 @@ h6{
   font-size: 10px;
   font-weight: 200;
   vertical-align: super;
+}
+
+.btn {
+  font-weight: bold !important;
+}
+
+#request-little{
+  position: absolute;
+  left: calc(6% + 320px);
+  top: 10%;
+  border-radius: 0;
+  min-width: 300px;
+  display: none;
+  opacity: 0;
+  z-index: 1;
+}
+
+#request-little .card-header{
+  border-radius: 0;
+}
+
+.hide{
+  display: none;
+}
+.show{
+  display: block;
+}
+
+#request-btn{
+  display: none;
+  opacity: 0;
 }
